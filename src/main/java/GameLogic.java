@@ -8,19 +8,18 @@ public class GameLogic{
     private Field field =new Field();
 
     public void start() {
-        int lastPos;
         GameStatus gameStatus = GameStatus.CONTINUE;
         for (int i = 0; i < 9; i++) {
             if(i%2==0){
-                lastPos = humanStep();
-                if(checkWinner(lastPos)){
+                humanStep();
+                if(checkWinner()){
                     gameStatus=GameStatus.WIN_USER;
                     break;
                 }
             }
             else{
-                lastPos=computerStep();
-                if(checkWinner(lastPos)){
+                computerStep();
+                if(checkWinner()){
                     gameStatus=GameStatus.WIN_PC;
                     break;
                 }
@@ -61,89 +60,39 @@ public class GameLogic{
         switch (gameStatus){
             case DRAW:
                 System.out.println("Ничья");
+                break;
             case WIN_PC:
                 System.out.println("Победил компьютер");
+                break;
             case WIN_USER:
                 System.out.println("Победил человек");
+                break;
         }
     }
+    private boolean  checkWinner(){
+                        char f0 =field.getField(0);
+                        char f1 =field.getField(1);
+                        char f2 =field.getField(2);
+                        char f3 =field.getField(3);
+                        char f4 =field.getField(4);
+                        char f5 =field.getField(5);
+                        char f6 =field.getField(6);
+                        char f7 =field.getField(7);
+                        char f8 =field.getField(8);
 
-
-    private boolean  checkWinner(int lastPos){
-        switch (lastPos){
-            case 0: {
-                if((field.getField(0)==field.getField(1)&&field.getField(0)==field.getField(2)) ||
-                        (field.getField(0)==field.getField(4)&&field.getField(0)==field.getField(8)) ||
-                        (field.getField(0)==field.getField(1)&&field.getField(0)==field.getField(2))){
-                    return true;
-                }
-                else return false;
+                        if(((f0== 'X' || f0 == 'O') &&  f0 == f1 && f0 == f2 )
+                        || ((f0== 'X' || f0 == 'O') &&  f0 == f4 && f0 == f8 )
+                        || ((f0== 'X' || f0 == 'O') &&  f0 == f3 && f0 == f6 )
+                        || ((f1== 'X' || f1 == 'O') &&  f1 == f4 && f0 == f7 )
+                        || ((f2== 'X' || f2 == 'O') &&  f2 == f5 && f2 == f8 )
+                        || ((f3== 'X' || f3 == 'O') &&  f3 == f4 && f3 == f5 )
+                        || ((f6== 'X' || f6 == 'O') &&  f6 == f7 && f6 == f8 )
+                        || ((f6== 'X' || f6 == 'O') &&  f6 == f4 && f6 == f2 )
+                        ) {
+            return true;
+            } else {
+            return false;
             }
-            case 1:{
-                if((field.getField(1)==field.getField(0)&&field.getField(1)==field.getField(2)) ||
-                        (field.getField(1)==field.getField(4)&&field.getField(1)==field.getField(7))){
-                    return true;
-                }
-                else return false;
-            }
-            case 2:{
-                if((field.getField(2)==field.getField(1)&&field.getField(2)==field.getField(0)) ||
-                        (field.getField(2)==field.getField(4)&&field.getField(2)==field.getField(6)) ||
-                        (field.getField(2)==field.getField(5)&&field.getField(2)==field.getField(8))){
-                    return true;
-                }
-                else return false;
-            }
-            case 3:{
-                if((field.getField(3)==field.getField(0)&&field.getField(3)==field.getField(6)) ||
-                        (field.getField(3)==field.getField(4)&&field.getField(3)==field.getField(5))){
-                    return true;
-                }
-                else return false;
-            }
-            case 4:{
-                if((field.getField(4)==field.getField(0)&&field.getField(0)==field.getField(8)) ||
-                        (field.getField(4)==field.getField(2)&&field.getField(4)==field.getField(6)) ||
-                        (field.getField(4)==field.getField(1)&&field.getField(4)==field.getField(7)) ||
-                        ((field.getField(4)==field.getField(3)&&field.getField(4)==field.getField(5)))){
-                    return true;
-                }
-                else return false;
-            }
-            case 5:{
-                if((field.getField(5)==field.getField(2)&&field.getField(5)==field.getField(8)) ||
-                        (field.getField(5)==field.getField(4)&&field.getField(5)==field.getField(3))){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            case 6:{
-                if((field.getField(6)==field.getField(3)&&field.getField(6)==field.getField(0)) ||
-                        (field.getField(6)==field.getField(4)&&field.getField(6)==field.getField(2)) ||
-                        (field.getField(6)==field.getField(7)&&field.getField(6)==field.getField(8))){
-                    return true;
-                }
-                else return false;
-            }
-            case 7:{
-                if((field.getField(7)==field.getField(6)&&field.getField(7)==field.getField(8)) ||
-                        (field.getField(7)==field.getField(4)&&field.getField(7)==field.getField(1))){
-                    return true;
-                }
-                else return false;
-            }
-            case 8:{
-                if((field.getField(8)==field.getField(4)&&field.getField(8)==field.getField(0)) ||
-                        (field.getField(8)==field.getField(5)&&field.getField(8)==field.getField(2)) ||
-                        (field.getField(8)==field.getField(7)&&field.getField(8)==field.getField(6))){
-                    return true;
-                }
-                else return false;
-            }
-        }
-        return  false;
     }
-
 }
+
